@@ -5,7 +5,7 @@ $username = "your_username";
 $password = "your_password";
 $dbname = "your_database";
 
-// データベース接続の設定回り
+// データベース接続の設定
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
@@ -14,7 +14,6 @@ if ($conn->connect_error) {
 
 $sql = "SELECT player_name, highest_score, previous_score FROM rankings ORDER BY highest_score DESC LIMIT 30";
 $result = $conn->query($sql);
-
 ?>
 
 <!DOCTYPE html>
@@ -64,17 +63,14 @@ $result = $conn->query($sql);
                     <li>spaceキーで自機の弾発射です。</li>
                     <li>矢印キーで移動します。「 ← ↑ ↓ → 」</li>
                     <li>ゲームオーバー時はRキーで再スタートです。</li>
-                    <li>ゲームプレイ中は(Windows)ctrl+R <br>
-                        (mac)command+Rでリセットです。</li>
+                    <li>ゲームプレイ中は(Windows)ctrl+R <br> (mac)command+Rでリセットです。</li>
                     <li>sキーでbgmのON/OFF</li>
                     <li>ゲーム終了はブラウザーの×です。</li>
-                    <li>PCの性能によりゲームに <br>
-                        遅延が発生することをご了承ください。</li>
+                    <li>PCの性能によりゲームに <br> 遅延が発生することをご了承ください。</li>
                     <li>※ゲームスタートボタンを連続でクリックするとゲームが高速化するので注意</li>
                 </ul>
             </article>
         </div>
-
 
         <div class="div-ranking">
             <h3>╗|║.:*・° ランキング °・*:. ║|╔</h3>
@@ -94,22 +90,23 @@ $result = $conn->query($sql);
                     </tr>
 
                     <?php
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                echo "<tr><td>" . htmlspecialchars($row["player_name"]) . "</td><td>" . $row["highest_score"] . "</td><td>" . $row["previous_score"] . "</td></tr>";
-            }
-        } else {
-            echo "<tr><td colspan='3'>ランキング情報</td></tr>";
-        }
-        ?>
-    </table>
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr><td>" . htmlspecialchars($row["player_name"]) . "</td><td>" . $row["highest_score"] . "</td><td>" . $row["previous_score"] . "</td></tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='3'>ランキング情報</td></tr>";
+                    }
+                    ?>
+                </table>
+            </form>
+        </footer>
+    </div>
 </body>
 
 </html>
 
 <?php
-
+// データベース接続のクローズ
 $conn->close();
 ?>
-
-
