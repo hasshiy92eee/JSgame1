@@ -1,0 +1,11 @@
+
+FROM mysql:latest
+
+
+ENV MYSQL_ROOT_PASSWORD=root_password
+ENV MYSQL_DATABASE=your_database
+ENV MYSQL_USER=your_username
+ENV MYSQL_PASSWORD=your_password
+
+
+EXPOSE 3306
